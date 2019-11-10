@@ -1,0 +1,21 @@
+{
+  "Toyota": {
+    "RAV4": "https://www.toyota.com/camry/",
+    "Camry": "https://www.toyota.com/camry/",
+    "Corolla": "https://www.toyota.com/corolla/",
+    "Tacoma": "https://www.toyota.com/tacoma/",
+    "Highlander": "https://www.toyota.com/highlander/",
+    "4Runner": "https://www.toyota.com/4runner/",
+    "Tundra": "https://www.toyota.com/tundra/",
+    "Prius": "https://www.toyota.com/prius/",
+    "Yaris": "https://www.toyota.com/yaris/"
+  },
+  "Nissan": {
+    "Rogue": "https://www.nissanusa.com/vehicles/crossovers-suvs/rogue.html",
+    "Sentra": "https://www.nissanusa.com/vehicles/cars/sentra.html",
+    "Altima": "https://www.nissanusa.com/vehicles/cars/altima.html",
+    "Frontier": "https://www.nissanusa.com/vehicles/trucks/frontier.html",
+    "Murano": "https://www.nissanusa.com/vehicles/crossovers-suvs/murano.html",
+    "Kicks": "https://www.nissanusa.com/vehicles/crossovers-suvs/kicks.html"
+  }
+}
