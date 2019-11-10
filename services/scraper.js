@@ -1,25 +1,78 @@
-const axios = require('axios');
 const cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
+const { default: PQueue } = require('p-queue');
+const { db } = require('../db');
+const carData = require('../car_data');
 
-const urls = {
-  RAV4: 'https://www.toyota.com/camry/',
-  Camry: 'https://www.toyota.com/camry/',
-  Corolla: 'https://www.toyota.com/corolla/',
-  Tacoma: 'https://www.toyota.com/tacoma/',
-  Highlander: 'https://www.toyota.com/highlander/',
-  '4Runner': 'https://www.toyota.com/4runner/',
-  Tundra: 'https://www.toyota.com/tundra/',
-  Prius: 'https://www.toyota.com/prius/',
-  Yaris: 'https://www.toyota.com/yaris/'
+const queue = new PQueue({ concurrency: 2 });
+
+const args = [
+  '--no-sandbox',
+  '--disable-setuid-sandbox',
+  '--disable-infobars',
+  '--window-position=0,0',
+  '--ignore-certifcate-errors',
+  '--ignore-certifcate-errors-spki-list',
+  '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
+];
+
+const chromeOptions = {
+  args,
+  headless: true,
+  ignoreHTTPSErrors: true,
+  userDataDir: './tmp',
 };
 
-Object.entries(urls).forEach(([name, url]) => {
-  axios.get(url)
-    .then((response) => {
-      const html = response.data;
-      const $ = cheerio.load(html);
-      const msrp = $('.mlp-welcome-msrp').find('strong').text().trim();
-      console.log(`${name}: ${msrp}`);
-    })
-    .catch((error) => console.log(error));
-});
+async function logPrice(carName, carPrice) {
+  try {
+    const timestamp = Date.now() / 1000;
+    await db.query(`INSERT INTO logs (car_name, car_price, created_at) VALUES ('${carName}', '${carPrice}', to_timestamp(${timestamp}))`);
+  } catch (e) {
+    console.log(e);
+  } finally {
+    console.log(`logged -> ${carName}: $${carPrice}`);
+  }
+}
+
+function selectCarPrice($, carBrand) {
+  switch (carBrand) {
+    case 'Toyota':
+      return $('.mlp-welcome-msrp')
+        .find('strong')
+        .text()
+        .trim()
+        .replace(/[,$]/g, '');
+    case 'Nissan':
+      return $('.primary-price')
+        .find('strong')
+        .first()
+        .text()
+        .replace(/[,$]/g, '');
+    default: return null;
+  }
+}
+
+async function fetchPrice(url, carName, carBrand) {
+  try {
+    const browser = await puppeteer.launch(chromeOptions);
+    const page = await browser.newPage();
+    await page.goto(url, { waitUntil: 'load', timeout: 90000 });
+    const html = await page.content();
+    const $ = cheerio.load(html);
+    const carPrice = selectCarPrice($, carBrand);
+    logPrice(carName, parseInt(carPrice, 10));
+    browser.close();
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function execute() {
+  Object.entries(carData).forEach(([carBrand, carUrls]) => {
+    Object.entries(carUrls).forEach(([carName, url]) => {
+      queue.add(() => fetchPrice(url, carName, carBrand));
+    });
+  });
+}
+
+execute();
