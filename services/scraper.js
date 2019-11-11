@@ -4,7 +4,7 @@ const { default: PQueue } = require('p-queue');
 const { db } = require('../db');
 const carData = require('../car_data');
 
-const queue = new PQueue({ concurrency: 2 });
+const queue = new PQueue({ concurrency: 3 });
 
 const args = [
   '--no-sandbox',
@@ -23,44 +23,47 @@ const chromeOptions = {
   userDataDir: './tmp',
 };
 
-async function logPrice(carName, carPrice) {
-  try {
-    const timestamp = Date.now() / 1000;
-    await db.query(`INSERT INTO logs (car_name, car_price, created_at) VALUES ('${carName}', '${carPrice}', to_timestamp(${timestamp}))`);
-  } catch (e) {
-    console.log(e);
-  } finally {
-    console.log(`logged -> ${carName}: $${carPrice}`);
-  }
-}
-
-function selectCarPrice($, carBrand) {
-  switch (carBrand) {
-    case 'Toyota':
-      return $('.mlp-welcome-msrp')
-        .find('strong')
-        .text()
-        .trim()
-        .replace(/[,$]/g, '');
-    case 'Nissan':
-      return $('.primary-price')
-        .find('strong')
-        .first()
-        .text()
-        .replace(/[,$]/g, '');
-    default: return null;
-  }
-}
-
 async function fetchPrice(url, carName, carBrand) {
+  async function logPrice(carPrice) {
+    try {
+      const timestamp = Date.now() / 1000;
+      await db.query(
+        `INSERT INTO logs (car_name, car_brand, car_price, created_at)
+        VALUES ('${carName}', '${carBrand}', '${carPrice}', to_timestamp(${timestamp}))`,
+      );
+    } catch (e) {
+      console.log(e);
+    } finally {
+      console.log(`logged -> ${carName}: $${carPrice}`);
+    }
+  }
+
+  function findCarPrice($) {
+    switch (carBrand) {
+      case 'Toyota':
+        return $('.mlp-welcome-msrp')
+          .find('strong')
+          .text()
+          .trim()
+          .replace(/[,$]/g, '');
+      case 'Nissan':
+        return $('.primary-price')
+          .find('strong')
+          .first()
+          .text()
+          .replace(/[,$]/g, '');
+      default: return null;
+    }
+  }
+
   try {
     const browser = await puppeteer.launch(chromeOptions);
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'load', timeout: 90000 });
     const html = await page.content();
     const $ = cheerio.load(html);
-    const carPrice = selectCarPrice($, carBrand);
-    logPrice(carName, parseInt(carPrice, 10));
+    const carPrice = findCarPrice($);
+    logPrice(carName, carBrand, parseInt(carPrice, 10));
     browser.close();
   } catch (e) {
     console.log(e);
