@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const { db } = require('../db');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+const router = express.Router();
+const sql = fs.readFileSync(path.join(__dirname, 'query.sql')).toString();
+
+router.get('/', (req, res, next) => {
+  const getData = async () => {
+    const data = await db.query(sql);
+    res.render('index', { rows: data[1].rows, fields: data[1].fields });
+  };
+  getData();
 });
 
 module.exports = router;
