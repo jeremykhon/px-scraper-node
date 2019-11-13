@@ -9,10 +9,10 @@ const db = new Client({
   database: process.env.DB_DATABASE,
 });
 
-async function execute() {
+async function dbStart() {
   await db.connect();
   console.log('Connected successfully');
 }
 
-execute();
+exports.dbStart = dbStart;
 exports.db = db;
