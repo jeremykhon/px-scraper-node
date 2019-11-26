@@ -5,8 +5,8 @@ FROM crosstab(
 	'SELECT DATE(created_at) as date, car_name, max(car_price)
 	FROM logs
 	GROUP BY (date, car_name)
-	ORDER BY 1,2',
-	'SELECT DISTINCT car_name FROM logs')
+	ORDER BY 1,2,3',
+	'SELECT DISTINCT car_name FROM logs ORDER BY 1')
 AS logs(
 	"date" date,
 	"4Runner" int,
