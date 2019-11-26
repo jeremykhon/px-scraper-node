@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
 const { default: PQueue } = require('p-queue');
-const { db } = require('../db');
+const { db, dbStart } = require('../db');
 const carData = require('../car_data');
 
 const queue = new PQueue({ concurrency: 3 });
@@ -23,59 +23,65 @@ const chromeOptions = {
   userDataDir: './tmp',
 };
 
-async function fetchPrice(url, carName, carBrand) {
-  async function logPrice(carPrice) {
+function scraper() {
+  const fetchPrice = async (url, carName, carBrand) => {
+    const logPrice = async (carPrice) => {
+      try {
+        const timestamp = Date.now() / 1000;
+        await db.query(
+          `INSERT INTO logs (car_name, car_brand, car_price, created_at)
+          VALUES ('${carName}', '${carBrand}', '${carPrice}', to_timestamp(${timestamp}))`,
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    const findCarPrice = ($) => {
+      switch (carBrand) {
+        case 'Toyota':
+          return $('.mlp-welcome-msrp')
+            .find('strong')
+            .text()
+            .trim()
+            .replace(/[,$]/g, '');
+        case 'Nissan':
+          return $('.primary-price')
+            .find('strong')
+            .first()
+            .text()
+            .replace(/[,$]/g, '');
+        default:
+          return null;
+      }
+    };
+
     try {
-      const timestamp = Date.now() / 1000;
-      await db.query(
-        `INSERT INTO logs (car_name, car_brand, car_price, created_at)
-        VALUES ('${carName}', '${carBrand}', '${carPrice}', to_timestamp(${timestamp}))`,
-      );
+      const browser = await puppeteer.launch(chromeOptions);
+      const page = await browser.newPage();
+      await page.goto(url, {
+        waitUntil: 'load',
+        timeout: 90000,
+      });
+      const html = await page.content();
+      const $ = cheerio.load(html);
+      const carPrice = findCarPrice($);
+      logPrice(parseInt(carPrice, 10));
+      browser.close();
     } catch (e) {
       console.log(e);
-    } finally {
-      console.log(`logged -> ${carName}: $${carPrice}`);
     }
-  }
+  };
 
-  function findCarPrice($) {
-    switch (carBrand) {
-      case 'Toyota':
-        return $('.mlp-welcome-msrp')
-          .find('strong')
-          .text()
-          .trim()
-          .replace(/[,$]/g, '');
-      case 'Nissan':
-        return $('.primary-price')
-          .find('strong')
-          .first()
-          .text()
-          .replace(/[,$]/g, '');
-      default: return null;
-    }
-  }
-
-  try {
-    const browser = await puppeteer.launch(chromeOptions);
-    const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'load', timeout: 90000 });
-    const html = await page.content();
-    const $ = cheerio.load(html);
-    const carPrice = findCarPrice($);
-    logPrice(carName, carBrand, parseInt(carPrice, 10));
-    browser.close();
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-function execute() {
-  Object.entries(carData).forEach(([carBrand, carUrls]) => {
-    Object.entries(carUrls).forEach(([carName, url]) => {
-      queue.add(() => fetchPrice(url, carName, carBrand));
+  const execute = () => {
+    dbStart();
+    Object.entries(carData).forEach(([carBrand, carUrls]) => {
+      Object.entries(carUrls).forEach(([carName, url]) => {
+        queue.add(() => fetchPrice(url, carName, carBrand));
+      });
     });
-  });
-}
+  };
 
-execute();
+  execute();
+}
+scraper();
