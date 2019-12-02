@@ -2,12 +2,12 @@ CREATE EXTENSION IF NOT EXISTS tablefunc;
 
 SELECT *
 FROM crosstab(
-	'SELECT DATE(created_at) as date, car_name, max(car_price)
-	FROM logs
-	GROUP BY (date, car_name)
+	'SELECT DATE("createdAt") as date, "carName", max("carPrice")
+	FROM "CarPriceLogs"
+	GROUP BY (date, "carName")
 	ORDER BY 1,2,3',
-	'SELECT DISTINCT car_name FROM logs ORDER BY 1')
-AS logs(
+	'SELECT DISTINCT "carName" FROM "CarPriceLogs" ORDER BY 1')
+AS "CarPriceLogs"(
 	"date" date,
 	"4Runner" int,
 	"Altima" int,

@@ -29,8 +29,8 @@ function scraper() {
       try {
         const timestamp = Date.now() / 1000;
         await db.query(
-          `INSERT INTO logs (car_name, car_brand, car_price, created_at)
-          VALUES ('${carName}', '${carBrand}', '${carPrice}', to_timestamp(${timestamp}))`,
+          `INSERT INTO "CarPriceLogs" ("carName", "carBrand", "carPrice", "url", "createdAt")
+          VALUES ('${carName}', '${carBrand}', '${carPrice}', '${url}', to_timestamp(${timestamp}))`,
         );
       } catch (e) {
         console.log(e);
@@ -84,4 +84,5 @@ function scraper() {
 
   execute();
 }
+
 scraper();
