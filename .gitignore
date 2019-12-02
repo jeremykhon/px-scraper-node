@@ -61,3 +61,7 @@ typings/
 .next
 
 tmp/
+
+# docker
+docker-compose.yml
+Dockerfile
