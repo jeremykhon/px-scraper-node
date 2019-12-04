@@ -9,7 +9,7 @@ const sql = fs.readFileSync(path.join(__dirname, '/../sql/query.sql')).toString(
 router.get('/', (req, res, next) => {
   const getData = async () => {
     const data = await db.query(sql);
-    res.render('index', { rows: data[1].rows, fields: data[1].fields });
+    res.render('index', { title: 'Car Prices', rows: data[1].rows, fields: data[1].fields });
   };
   getData();
 });

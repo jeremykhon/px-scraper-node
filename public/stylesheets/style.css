@@ -1,13 +1,12 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.container-fluid {
+  overflow: auto;
 }
 
-a {
-  color: #00B7FF;
+th {
+  font-size: 14px;
 }
 
-body {
-  padding: 0;
+td {
+  font-size: 14px;
+  white-space: nowrap;
 }
-
