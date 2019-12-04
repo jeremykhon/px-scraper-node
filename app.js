@@ -5,7 +5,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const { CronJob } = require('cron');
 
+const scraper = require('./services/scraper');
 const indexRouter = require('./routes/index');
 const chartRouter = require('./routes/chart');
 
@@ -13,6 +15,13 @@ const app = express();
 const { dbStart } = require('./db');
 
 dbStart();
+
+const job = new CronJob('00 00 05 * * *', () => {
+  scraper();
+});
+
+job.start();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
