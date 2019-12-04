@@ -1,0 +1,64 @@
+{   
+  "RAV4": {
+    "brand": "Toyota",
+    "url": "https://www.toyota.com/camry/"
+  },
+  "Camry": {
+    "brand": "Toyota",
+    "url": "https://www.toyota.com/camry/"
+  },
+  "Corolla": {
+    "brand": "Toyota",
+    "url": "https://www.toyota.com/corolla/"
+  },
+  "Tacoma": {
+    "brand": "Toyota",
+    "url": "https://www.toyota.com/tacoma/"
+  },
+  "Highlander": {
+    "brand": "Toyota",
+    "url": "https://www.toyota.com/highlander/"
+  },
+  "4Runner": {
+    "brand": "Toyota",
+    "url": "https://www.toyota.com/4runner/"
+  },
+  "Tundra": {
+    "brand": "Toyota",
+    "url": "https://www.toyota.com/tundra/"
+  },
+  "Prius": {
+    "brand": "Toyota",
+    "url": "https://www.toyota.com/prius/"
+  },
+  "Yaris": {
+    "brand": "Toyota",
+    "url": "https://www.toyota.com/yaris/"
+  },
+  "Rogue": {
+    "brand": "Nissan",
+    "url": "https://www.nissanusa.com/vehicles/crossovers-suvs/rogue.html"
+  },
+  "Sentra": {
+    "brand": "Nissan",
+    "url": "https://www.nissanusa.com/vehicles/cars/sentra.html"
+  },
+  "Altima": {
+    "brand": "Nissan",
+    "url": "https://www.nissanusa.com/vehicles/cars/altima.html"
+  },
+  "Frontier": {
+    "brand": "Nissan",
+    "url": "https://www.nissanusa.com/vehicles/trucks/frontier.html"
+  },
+  "Murano": {
+    "brand": "Nissan",
+    "url": "https://www.nissanusa.com/vehicles/crossovers-suvs/murano.html"
+  },
+  "Kicks": {
+    "brand": "Nissan",
+    "url": "https://www.nissanusa.com/vehicles/crossovers-suvs/kicks.html"
+  }
+}
+
+
