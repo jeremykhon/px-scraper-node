@@ -2,6 +2,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const moment = require('moment');
 const Table = require('react-bootstrap/Table');
+const carData = require('../../lib/car_data');
 
 const PriceTable = ({ rows, fields }) => (
   <Table striped bordered hover>
@@ -9,7 +10,17 @@ const PriceTable = ({ rows, fields }) => (
       <tr>
         {fields.map((field, fieldId) => (
           <th key={fieldId}>
-            {field.name}
+            {field.name === 'date'
+              ? 'Date'
+              : (
+                <a
+                  href={carData[field.name].url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {field.name}
+                </a>
+              )}
           </th>
         ))}
       </tr>

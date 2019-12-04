@@ -1,4 +1,6 @@
 const React = require('react');
+const Navbar = require('react-bootstrap/Navbar');
+const Nav = require('react-bootstrap/Nav');
 
 function DefaultLayout(props) {
   return (
@@ -8,7 +10,17 @@ function DefaultLayout(props) {
         <link rel="stylesheet" href="/stylesheets/style.css" />
         <link rel="stylesheet" href="css/bootstrap.min.css" />
       </head>
-      <body>{props.children}</body>
+      <body>
+        <Navbar bg="dark" variant="dark">
+          <Navbar.Brand href="/">Maya&apos;s Car Price Scraper</Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link href="/">Table</Nav.Link>
+            <Nav.Link href="/source">Source</Nav.Link>
+          </Nav>
+        </Navbar>
+        <br />
+        {props.children}
+      </body>
     </html>
   );
 }

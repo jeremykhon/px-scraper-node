@@ -2,7 +2,7 @@ const cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
 const { default: PQueue } = require('p-queue');
 const { db, dbStart } = require('../db');
-const carData = require('../car_data');
+const carData = require('../lib/car_data');
 
 const queue = new PQueue({ concurrency: 3 });
 
@@ -24,7 +24,7 @@ const chromeOptions = {
 };
 
 function scraper() {
-  const fetchPrice = async (url, carName, carBrand) => {
+  const fetchPrice = async (carName, url, carBrand) => {
     const logPrice = async (carPrice) => {
       try {
         const timestamp = Date.now() / 1000;
@@ -75,10 +75,8 @@ function scraper() {
 
   const execute = () => {
     dbStart();
-    Object.entries(carData).forEach(([carBrand, carUrls]) => {
-      Object.entries(carUrls).forEach(([carName, url]) => {
-        queue.add(() => fetchPrice(url, carName, carBrand));
-      });
+    Object.entries(carData).forEach(([carName, carProperties]) => {
+      queue.add(() => fetchPrice(carName, carProperties.url, carProperties.brand));
     });
   };
 
