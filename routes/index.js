@@ -4,7 +4,7 @@ const path = require('path');
 const { db } = require('../db');
 
 const router = express.Router();
-const sql = fs.readFileSync(path.join(__dirname, 'query.sql')).toString();
+const sql = fs.readFileSync(path.join(__dirname, '/../sql/query.sql')).toString();
 
 router.get('/', (req, res, next) => {
   const getData = async () => {

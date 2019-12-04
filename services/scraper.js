@@ -33,7 +33,7 @@ function scraper() {
           VALUES ('${carName}', '${carBrand}', '${carPrice}', '${url}', to_timestamp(${timestamp}))`,
         );
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     };
 
@@ -69,7 +69,7 @@ function scraper() {
       logPrice(parseInt(carPrice, 10));
       browser.close();
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
@@ -85,4 +85,4 @@ function scraper() {
   execute();
 }
 
-scraper();
+exports.scraper = scraper;
