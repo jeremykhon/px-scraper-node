@@ -78,6 +78,7 @@ function scraper() {
     Object.entries(carData).forEach(([carName, carProperties]) => {
       queue.add(() => fetchPrice(carName, carProperties.url, carProperties.brand));
     });
+    console.log('done scraping');
   };
 
   execute();
