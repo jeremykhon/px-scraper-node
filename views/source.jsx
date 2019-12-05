@@ -4,7 +4,7 @@ const DefaultLayout = require('./layouts/default');
 const SourcePage = (props) => (
   <DefaultLayout title={props.title}>
     <div className="container-fluid">
-      nothing here yet
+      nothing here yets
     </div>
   </DefaultLayout>
 );
