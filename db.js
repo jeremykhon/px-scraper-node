@@ -6,8 +6,12 @@ const db = new Client({
 });
 
 async function dbStart() {
-  await db.connect();
-  console.log('Connected successfully');
+  try {
+    await db.connect();
+    console.log('Connected successfully');
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 exports.dbStart = dbStart;
