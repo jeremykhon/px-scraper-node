@@ -4,6 +4,7 @@
 
 th {
   font-size: 14px;
+  white-space: nowrap;
 }
 
 td {

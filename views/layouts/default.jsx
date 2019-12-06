@@ -12,10 +12,9 @@ function DefaultLayout(props) {
       </head>
       <body>
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="/">Maya&apos;s Car Price Scraper</Navbar.Brand>
+          <Navbar.Brand href="/">Car Price Scraper</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="/">Table</Nav.Link>
-            <Nav.Link href="/source">Source</Nav.Link>
           </Nav>
         </Navbar>
         <br />
