@@ -1,63 +1,203 @@
 {   
   "RAV4": {
     "brand": "Toyota",
+    "pattern": "toyota",
     "url": "https://www.toyota.com/camry/"
   },
   "Camry": {
     "brand": "Toyota",
+    "pattern": "toyota",
     "url": "https://www.toyota.com/camry/"
   },
   "Corolla": {
     "brand": "Toyota",
+    "pattern": "toyota",
     "url": "https://www.toyota.com/corolla/"
   },
   "Tacoma": {
     "brand": "Toyota",
+    "pattern": "toyota",
     "url": "https://www.toyota.com/tacoma/"
   },
   "Highlander": {
     "brand": "Toyota",
+    "pattern": "toyota",
     "url": "https://www.toyota.com/highlander/"
   },
   "4Runner": {
     "brand": "Toyota",
+    "pattern": "toyota",
     "url": "https://www.toyota.com/4runner/"
   },
   "Tundra": {
     "brand": "Toyota",
+    "pattern": "toyota",
     "url": "https://www.toyota.com/tundra/"
   },
   "Prius": {
     "brand": "Toyota",
+    "pattern": "toyota",
     "url": "https://www.toyota.com/prius/"
   },
   "Yaris": {
     "brand": "Toyota",
+    "pattern": "toyota",
     "url": "https://www.toyota.com/yaris/"
   },
   "Rogue": {
     "brand": "Nissan",
+    "pattern": "nissan",
     "url": "https://www.nissanusa.com/vehicles/crossovers-suvs/rogue.html"
   },
   "Sentra": {
     "brand": "Nissan",
+    "pattern": "nissan",
     "url": "https://www.nissanusa.com/vehicles/cars/sentra.html"
   },
   "Altima": {
     "brand": "Nissan",
+    "pattern": "nissan",
     "url": "https://www.nissanusa.com/vehicles/cars/altima.html"
   },
   "Frontier": {
     "brand": "Nissan",
+    "pattern": "nissan",
     "url": "https://www.nissanusa.com/vehicles/trucks/frontier.html"
   },
   "Murano": {
     "brand": "Nissan",
+    "pattern": "nissan",
     "url": "https://www.nissanusa.com/vehicles/crossovers-suvs/murano.html"
   },
   "Kicks": {
     "brand": "Nissan",
+    "pattern": "nissan",
     "url": "https://www.nissanusa.com/vehicles/crossovers-suvs/kicks.html"
+  },
+  "CR-V": {
+    "brand": "Honda",
+    "pattern": "honda",
+    "url": "https://automobiles.honda.com/cr-v"
+  },
+  "Civic": {
+    "brand": "Honda",
+    "pattern": "honda",
+    "url": "https://automobiles.honda.com/civic-sedan"
+  },
+  "Accord": {
+    "brand": "Honda",
+    "pattern": "honda",
+    "url": "https://automobiles.honda.com/accord-sedan"
+  },	
+  "HR-V": {
+    "brand": "Honda",
+    "pattern": "honda",
+    "url": "https://automobiles.honda.com/hr-v"
+  },
+  "Pilot": {
+    "brand": "Honda",
+    "pattern": "honda",
+    "url": "https://automobiles.honda.com/pilot"
+  },
+  "Odyssey": {
+    "brand": "Honda",
+    "pattern": "honda",
+    "url": "https://automobiles.honda.com/odyssey"
+  },
+  "Forester": {
+    "brand": "Subaru",
+    "pattern": "subaru",
+    "url": "https://www.subaru.com/vehicles/forester/index.html"
+  },
+  "CrosTrek": {
+    "brand": "Subaru",
+    "pattern": "subaru",
+    "url": "https://www.subaru.com/vehicles/crosstrek/index.html"
+  },
+  "Outback": {
+    "brand": "Subaru",
+    "pattern": "subaru",
+    "url": "https://www.subaru.com/vehicles/outback/index.html"
+  },
+  "Ascent": {
+    "brand": "Subaru",
+    "pattern": "subaru",
+    "url": "https://www.subaru.com/vehicles/ascent/index.html"
+  },
+  "Impreza": {
+    "brand": "Subaru",
+    "pattern": "subaru",
+    "url": "https://www.subaru.com/vehicles/impreza/index.html"
+  },
+  "CX-5": {
+    "brand": "Mazda",
+    "pattern": "mazda",
+    "url": "https://www.mazdausa.com/vehicles/cx-5"
+  },
+  "CX-9": {
+    "brand": "Mazda",
+    "pattern": "mazda",
+    "url": "https://www.mazdausa.com/vehicles/cx-9"
+  },
+  "Mazda3": {
+    "brand": "Mazda",
+    "pattern": "mazda1",
+    "url": "https://www.mazdausa.com/vehicles/mazda3-sedan"
+  },
+  "CX-3": {
+    "brand": "Mazda",
+    "pattern": "mazda2",
+    "url": "https://www.mazdausa.com/vehicles/cx-3"
+  },
+  "Mazda6": {
+    "brand": "Mazda",
+    "pattern": "mazda",
+    "url": "https://www.mazdausa.com/vehicles/mazda6"
+  },
+  "RX": {
+    "brand": "Lexus",
+    "pattern": "lexus",
+    "url": "https://www.lexus.com/models/RX"
+  },
+  "ES": {
+    "brand": "Lexus",
+    "pattern": "lexus",
+    "url": "https://www.lexus.com/models/ES"
+  },
+  "UX": {
+    "brand": "Lexus",
+    "pattern": "lexus",
+    "url": "https://www.lexus.com/models/UX"
+  },
+  "Mirage": {
+    "brand": "Mitsubishi",
+    "pattern": "mitsubishi",
+    "url": "https://www.mitsubishicars.com/mirage/2019"
+  },
+  "Outlander": {
+    "brand": "Mitsubishi",
+    "pattern": "mitsubishi",
+    "url": "https://www.mitsubishicars.com/outlander/2019"
+  },
+  "Eclipse Cross": {
+    "brand": "Mitsubishi",
+    "pattern": "mitsubishi",
+    "url": "https://www.mitsubishicars.com/eclipse-cross/2019"
+  },
+  "ILX": {
+    "brand": "Acura",
+    "pattern": "acura",
+    "url": "https://www.acura.com/ilx"
+  },
+  "RLX/RL": {
+    "brand": "Acura",
+    "pattern": "acura",
+    "url": "https://www.acura.com/rlx"
+  },
+  "TLX": {
+    "brand": "Acura",
+    "pattern": "acura",
+    "url": "https://www.acura.com/tlx"
   }
 }
 
