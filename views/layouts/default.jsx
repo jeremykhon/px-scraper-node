@@ -15,6 +15,7 @@ function DefaultLayout(props) {
           <Navbar.Brand href="/">Car Price Scraper</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="/">Table</Nav.Link>
+            <Nav.Link href="/source">Source</Nav.Link>
           </Nav>
         </Navbar>
         <br />

@@ -1,10 +1,11 @@
 const React = require('react');
 const DefaultLayout = require('./layouts/default');
+const SourceTable = require('./components/source_table');
 
 const SourcePage = (props) => (
   <DefaultLayout title={props.title}>
     <div className="container-fluid">
-      nothing here yets
+      <SourceTable {...props} />
     </div>
   </DefaultLayout>
 );
