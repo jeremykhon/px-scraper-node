@@ -9,7 +9,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 
 const app = express();
-const { dbStart } = require('./db');
+const { dbStart } = require('./db/db');
 
 dbStart();
 

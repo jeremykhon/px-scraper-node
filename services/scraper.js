@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
 const { default: PQueue } = require('p-queue');
-const { db, dbStart } = require('../db');
+const { db, dbStart } = require('../db/db');
 const carData = require('../lib/car_data');
 
 const queue = new PQueue({ concurrency: 1 });
