@@ -4,7 +4,7 @@ const { default: PQueue } = require('p-queue');
 const { db, dbStart } = require('../db');
 const carData = require('../lib/car_data');
 
-const queue = new PQueue({ concurrency: 3 });
+const queue = new PQueue({ concurrency: 1 });
 
 const args = [
   '--no-sandbox',
