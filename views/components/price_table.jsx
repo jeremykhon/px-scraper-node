@@ -5,36 +5,38 @@ const Table = require('react-bootstrap/Table');
 const carData = require('../../lib/car_data');
 
 const PriceTable = ({ rows, fields }) => (
-  <Table striped bordered hover>
-    <thead>
-      <tr>
-        {fields.map((field, fieldId) => (
-          <th key={fieldId}>
-            {field.name === 'date'
-              ? 'Date'
-              : (
-                <a
-                  href={carData[field.name].url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {field.name}
-                </a>
-              )}
-          </th>
-        ))}
-      </tr>
-    </thead>
-    <tbody>
-      {rows.map((row, rowId) => (
-        <tr key={rowId}>
-          {fields.map((field) => (
-            <td key={field.name}>{field.name === 'date' ? moment(row.date).format('DD-MMM-YY') : row[field.name] }</td>
+  <div className="table-container">
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+          {fields.map((field, fieldId) => (
+            <th key={fieldId}>
+              {field.name === 'date'
+                ? 'Date'
+                : (
+                  <a
+                    href={carData[field.name].url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {field.name}
+                  </a>
+                )}
+            </th>
           ))}
         </tr>
-      ))}
-    </tbody>
-  </Table>
+      </thead>
+      <tbody>
+        {rows.map((row, rowId) => (
+          <tr key={rowId}>
+            {fields.map((field) => (
+              <td key={field.name}>{field.name === 'date' ? moment(row.date).format('DD-MMM-YY') : row[field.name] }</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+  </div>
 );
 
 PriceTable.propTypes = {
