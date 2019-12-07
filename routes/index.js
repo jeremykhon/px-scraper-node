@@ -6,16 +6,28 @@ const { db } = require('../db');
 const router = express.Router();
 const sql = fs.readFileSync(path.join(__dirname, '/../sql/query.sql')).toString();
 
+router.get('/source', (req, res, next) => {
+  const getData = async () => {
+    try {
+      const data = await db.query('SELECT * FROM "CarPriceLogs"');
+      res.render('source', { title: 'Source', rows: data.rows, fields: data.fields });
+    } catch (error) {
+      next(error);
+    }
+  };
+  getData();
+});
+
 router.get('/', (req, res, next) => {
-  try {
-    const getData = async () => {
+  const getData = async () => {
+    try {
       const data = await db.query(sql);
       res.render('index', { title: 'Car Prices', rows: data[1].rows, fields: data[1].fields });
-    };
-    getData();
-  } catch (error) {
-    next(error);
-  }
+    } catch (error) {
+      next(error);
+    }
+  };
+  getData();
 });
 
 module.exports = router;
