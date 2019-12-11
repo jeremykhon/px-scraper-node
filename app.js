@@ -9,9 +9,6 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 
 const app = express();
-const { dbStart } = require('./db/db');
-
-dbStart();
 
 // view engine setup
 app.set('views', __dirname + '/views');
