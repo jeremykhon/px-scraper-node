@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { Parser } = require('json2csv');
-const { db } = require('../db/db');
+const db = require('../db/db');
 
 const router = express.Router();
 const sql = fs.readFileSync(path.join(__dirname, '/../db/sql/query.sql')).toString();

@@ -2,7 +2,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const moment = require('moment');
 const Table = require('react-bootstrap/Table');
-const carData = require('../../lib/car_data');
+const carData = require('../../cars_source_data');
 
 const PriceTable = ({ rows, fields }) => (
   <div className="table-container">
@@ -15,7 +15,7 @@ const PriceTable = ({ rows, fields }) => (
                 ? 'Date'
                 : (
                   <a
-                    href={carData[field.name].url}
+                    href={carData[field.name] && carData[field.name].url}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

@@ -22,7 +22,7 @@ exports.up = function (db) {
     },
     carName: { type: 'string', notNull: true },
     carBrand: { type: 'string', notNull: true },
-    carPrice: 'int',
+    carPrice: { type: 'int', notNull: true },
     url: 'string',
     createdAt: { type: 'timestamp', notNull: true },
   });
