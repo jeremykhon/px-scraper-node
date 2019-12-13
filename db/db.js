@@ -1,18 +1,15 @@
+const { Pool } = require('pg');
 require('dotenv').config();
-const { Client } = require('pg');
 
-const db = new Client({
+const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-async function dbStart() {
-  try {
-    await db.connect();
-    console.log('Connected successfully');
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-exports.dbStart = dbStart;
-exports.db = db;
+module.exports = {
+  connect: async () => (
+    pool.connect()
+  ),
+  query: async (text, params) => (
+    pool.query(text, params)
+  ),
+};

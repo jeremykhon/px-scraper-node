@@ -7,7 +7,7 @@
 const debug = require('debug')('px-scraper-node:server');
 const http = require('http');
 const app = require('../app');
-const { db } = require('../db/db');
+const db = require('../db/db');
 require('dotenv').config();
 
 /**
@@ -68,10 +68,13 @@ server.on('error', onError);
 server.on('listening', onListening);
 server.on('ready', onReady);
 
-db.connect((err) => {
-  if (err) {
-    console.error('db connection error', err.stack);
-  } else {
+const initialize = async () => {
+  try {
+    await db.connect();
     server.emit('ready');
+  } catch (err) {
+    console.error('db connection error', err.stack);
   }
-});
+};
+
+initialize();
