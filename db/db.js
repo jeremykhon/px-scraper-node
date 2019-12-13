@@ -6,9 +6,10 @@ const pool = new Pool({
 });
 
 module.exports = {
-  connect: async () => (
-    pool.connect()
-  ),
+  connect: async () => {
+    await pool.connect();
+    console.log('db connected');
+  },
   query: async (text, params) => (
     pool.query(text, params)
   ),
