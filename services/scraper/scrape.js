@@ -20,28 +20,50 @@ const chromeOptions = {
   userDataDir: './tmp',
 };
 
+const blockedResourceTypes = [
+  'image',
+  'media',
+  'stylesheet',
+  'font',
+];
+
+const interceptRequest = (request) => {
+  if (blockedResourceTypes.some((resource) => request.resourceType() === resource)) {
+    request.abort();
+  } else {
+    request.continue();
+  }
+};
+
 const scrape = async ({
   carName, carBrand, url, pattern,
 }) => {
   const browser = await puppeteer.launch(chromeOptions);
-  const page = await browser.newPage();
-  await page.goto(url, {
-    waitUntil: 'load',
-    timeout: 90000,
-  });
-  const html = await page.content();
-  const $ = cheerio.load(html);
-  const carPrice = selectCarPrice($, pattern);
-  const carPriceInt = parseInt(carPrice, 10);
-  if (Number.isInteger(carPriceInt)) {
-    throw new Error(`${carPrice} can not be parsed into integer}`);
+  try {
+    const page = await browser.newPage();
+    await page.setRequestInterception(true);
+    page.on('request', interceptRequest);
+    await page.goto(url, {
+      waitUntil: 'load',
+      timeout: 90000,
+    });
+    const html = await page.content();
+    const $ = cheerio.load(html);
+    const carPrice = selectCarPrice($, pattern);
+    const carPriceInt = parseInt(carPrice, 10);
+    if (!Number.isInteger(carPriceInt)) {
+      throw new Error(`[${carPrice}], ${parseInt(carPrice, 10)} can not be parsed into integer}`);
+    }
+    const timestamp = Date.now() / 1000;
+    await db.query(
+      `INSERT INTO "CarPriceLogs" ("carName", "carBrand", "carPrice", "url", "createdAt")
+      VALUES ('${carName}', '${carBrand}', '${carPriceInt}', '${url}', to_timestamp(${timestamp}))`,
+    );
+    browser.close();
+  } catch (error) {
+    browser.close();
+    throw error;
   }
-  const timestamp = Date.now() / 1000;
-  browser.close();
-  await db.query(
-    `INSERT INTO "CarPriceLogs" ("carName", "carBrand", "carPrice", "url", "createdAt")
-    VALUES ('${carName}', '${carBrand}', '${carPrice}', '${url}', to_timestamp(${timestamp}))`,
-  );
 };
 
 module.exports = scrape;
