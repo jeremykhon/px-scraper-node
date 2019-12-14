@@ -7,8 +7,8 @@ const selectCarPrice = ($, carPattern) => {
         .text()
         .replace(/[A-z]|[,$ *]|[\u25A0\u00A0\s]/g, '');
     case 'nissan':
-      return $('.primary-price')
-        .find('strong')
+      return $('div.price-item.primary-price')
+        .find('strong.price')
         .first()
         .text()
         .replace(/[A-z]|[,$ *]|[\u25A0\u00A0\s]/g, '');

@@ -31,7 +31,11 @@ const scrape = async ({
   });
   const html = await page.content();
   const $ = cheerio.load(html);
-  const carPrice = parseInt(selectCarPrice($, pattern), 10);
+  const carPrice = selectCarPrice($, pattern);
+  const carPriceInt = parseInt(carPrice, 10);
+  if (Number.isInteger(carPriceInt)) {
+    throw new Error(`${carPrice} can not be parsed into integer}`);
+  }
   const timestamp = Date.now() / 1000;
   browser.close();
   await db.query(
