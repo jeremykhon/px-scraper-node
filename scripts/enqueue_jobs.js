@@ -1,6 +1,9 @@
+const Sentry = require('@sentry/node');
 const scraperQueue = require('../jobs/scrape_job');
 const carData = require('../cars_source_data');
 const db = require('../db/db');
+
+Sentry.init({ dsn: process.env.SENTRY_DSN });
 
 async function enqueueScrapeJobs() {
   try {
@@ -21,7 +24,7 @@ async function enqueueScrapeJobs() {
       );
     });
   } catch (error) {
-    console.error(error, error.stack);
+    Sentry.captureException(error);
   }
 }
 
