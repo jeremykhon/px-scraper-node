@@ -18,8 +18,11 @@ async function enqueueScrapeJobs() {
           pattern: carProperties.pattern,
         },
         {
-          attempts: 3,
-          backoff: 5000,
+          attempts: 5,
+          backoff: {
+            type: 'exponential',
+            delay: 10000,
+          },
         },
       );
     });
