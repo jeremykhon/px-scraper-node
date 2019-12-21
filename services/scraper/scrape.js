@@ -44,7 +44,7 @@ const scrape = async ({
     await page.setRequestInterception(true);
     page.on('request', interceptRequest);
     await page.goto(url, {
-      waitUntil: 'load',
+      waitUntil: 'networkidle0',
       timeout: 90000,
     });
     const html = await page.content();
