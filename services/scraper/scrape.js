@@ -52,7 +52,7 @@ const scrape = async ({
     const carPrice = selectCarPrice($, pattern);
     const carPriceInt = parseInt(carPrice, 10);
     if (!Number.isInteger(carPriceInt)) {
-      throw new Error(`[${carPrice}], ${parseInt(carPrice, 10)} can not be parsed into integer}`);
+      throw new Error(`[${carPrice}] can not be parsed into integer, ${html}`);
     }
     const timestamp = Date.now() / 1000;
     await db.query(
